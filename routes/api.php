@@ -25,9 +25,9 @@ Route::group([
   Route::post('/logout', [AuthController::class, 'logout']);
   Route::post('/refresh', [AuthController::class, 'refresh']);
   Route::get('/user-profile', [AuthController::class, 'userProfile']);
-  Route::post('/file', [FilesController::class,'store']);
-  Route::get('/file', [FilesController::class,'index']);
-  Route::get('/file/{id}', [FilesController::class,'show']);
+  Route::post('/file', [FilesController::class,'store'])->withoutMiddleware('auth:api');;
+  Route::get('/file', [FilesController::class,'index'])->withoutMiddleware('auth:api');;
+  Route::get('/file/{id}', [FilesController::class,'show'])->withoutMiddleware('auth:api');;
 });
 
 
