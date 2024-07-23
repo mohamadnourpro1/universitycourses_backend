@@ -58,16 +58,38 @@ class FilesController extends Controller
         
     }
     
-    public function showseason(Request $request)
+    public function showlevel(Request $request)
     {
         $files = Files::query();
         $file = $files->where('course_code','LIKE',$request->course_code.'%')->get();
-        if($file){
+        if($file->isNotEmpty()){
           return $this->apiresponse($file,'file has been found',200);
         }
         return $this->apiresponse(null,'file not found',404);
         
     }
+    public function showseason(Request $request)
+    {
+        $files = Files::query();
+        $search_char = $request->input('course_code'); // القيمة المرسلة في الطلب
+        $file = $files->whereRaw('SUBSTRING(course_code, 2, 1) = ?', [$search_char])->get();
+        if($file->isNotEmpty()){
+            return $this->apiresponse($file, 'file has been found', 200);
+        }
+        return $this->apiresponse(null, 'file not found', 404);
+    }
+    public function showfile(Request $request)
+    {
+        $files = Files::query();
+        $search_chars = $request->input('course_code'); // القيمة المرسلة في الطلب
+        $file = $files->whereRaw('RIGHT(course_code, 2) = ?', [$search_chars])->get();
+        if($file->isNotEmpty()){
+            return $this->apiresponse($file, 'file has been found', 200);
+        }
+        return $this->apiresponse(null, 'file not found', 404);
+    }
+
+
 
     /**
      * Show the form for editing the specified resource.
