@@ -28,6 +28,7 @@ Route::group([
   Route::post('/file', [FilesController::class,'store'])->withoutMiddleware('auth:api');;
   Route::get('/file', [FilesController::class,'index'])->withoutMiddleware('auth:api');;
   Route::get('/file/{id}', [FilesController::class,'show'])->withoutMiddleware('auth:api');;
+  Route::get('/fileseason', [FilesController::class,'showseason'])->withoutMiddleware('auth:api');;
 });
 
 

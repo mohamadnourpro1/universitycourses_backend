@@ -57,6 +57,17 @@ class FilesController extends Controller
         return $this->apiresponse(null,'file not found',404);
         
     }
+    
+    public function showseason(Request $request)
+    {
+        $files = Files::query();
+        $file = $files->where('course_code','LIKE',$request->course_code.'%')->get();
+        if($file){
+          return $this->apiresponse($file,'file has been found',200);
+        }
+        return $this->apiresponse(null,'file not found',404);
+        
+    }
 
     /**
      * Show the form for editing the specified resource.
